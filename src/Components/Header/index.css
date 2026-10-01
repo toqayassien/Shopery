@@ -1,0 +1,10 @@
+/* .header-top form select{
+    background-image: url('src/Assets/angle-down.svg');
+    background-repeat: no-repeat;
+    width: 25px;
+    background-position: right center;
+} */
+.lang-currency-form{
+    display: flex;
+    gap: 10px;
+}

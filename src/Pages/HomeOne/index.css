@@ -1,0 +1,29 @@
+.summer-sale-banner{
+    background-image: url('src/Assets/summer-sale-banner.webp');
+    background-size: cover;
+    background-position: bottom;
+}
+.hero-banner-1{
+    background-image: url('src/Assets/grocery-woman.jpg');
+    background-size: cover;
+}
+.hero-banner-2{
+    background-image: url('src/Assets/hero-banner-2.png');
+    background-size: cover;
+}
+.hero-banner-3{
+    background-image: url('src/Assets/hero-banner-3.png');
+    background-size: cover;
+}
+.insta-post{
+    min-height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.insta-post:hover .layer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(150 , 155, 155, 0.5);
+}

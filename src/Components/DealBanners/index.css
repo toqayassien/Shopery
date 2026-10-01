@@ -1,0 +1,12 @@
+.best-deals {
+  background-image: url("src/Assets/best-deals-banner.png");
+  background-size: cover;
+}
+.meat-deals {
+  background-image: url("src/Assets/meat-sale-banner.png");
+  background-size: cover;
+}
+.fruit-deals {
+  background-image: url("src/Assets/fruit-sale-banner.png");
+  background-size: cover;
+}

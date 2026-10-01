@@ -1,0 +1,72 @@
+/* From Uiverse.io by SivarajRathinam */ 
+*{
+    outline: none;
+}
+.accordion {
+  /* width: 450px; */
+}
+
+.accordion-item {
+  margin-bottom: 5px;
+}
+
+.accordion-item .content {
+  font-size: 12px;
+  border-radius: 5px;
+}
+
+.accordion input[type="radio"] {
+  display: none;
+}
+
+.accordion .content {
+  height: 0px;
+  padding: 0px;
+  background-color: transparent;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+.accordion input[type="radio"]:checked + .accordion-header{
+    background-color: transparent;
+    border: 1px solid #84D187;
+    color: #2C742F;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.accordion input[type="radio"]:checked + .accordion-header + .content {
+  height: auto;
+  padding: 15px;
+  border: 1px solid #84D187;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-top: none;
+}
+.accordion-icon {
+  display: flex;
+  align-items: center;
+  transition: all 0.5s ease;
+}
+.accordion input[type="radio"]:checked + .accordion-header .accordion-icon {
+  transform: rotate(180deg);
+  background-color: #F2F2F2;
+  color: black;
+  border-radius: 50%;
+}
+.accordion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  background-color: transparent;
+  cursor: pointer;
+  font-weight: bold;
+  text-align: left;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  border: none;
+
+}
+.accordion-header .accordion-title {
+  font-size: 14px;
+}

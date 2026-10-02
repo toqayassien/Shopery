@@ -9,37 +9,52 @@ import { UserContext } from "../../Context/index.jsx";
 export default function Login() {
   const navigate = useNavigate();
   const { jwt, setJwt } = useContext(UserContext);
-  let {username} = useContext(UserContext)
-  const token = JSON.parse(localStorage.getItem("token"));
+  const { user, setUser } = useContext(UserContext);
+  const { cart, setCart } = useContext(UserContext);
+  const { cartTotal, setCartTotal } = useContext(UserContext);
+  // const token = JSON.parse(localStorage.getItem("token"));
+
+  async function fetchUser(username) {
+    try{
+      const resp = await axios.get(
+        `http://localhost:1337/api/users?filters[username][$eq]=${username}&[populate][cart][populate]=*`,
+    );
+    setCartTotal(resp.data[0].cart.cartTotal)
+  }
+  catch(err){
+    console.log(err)
+  }
+  }
+
 
   async function handleLogin(values) {
-    const user = {
-      identifier: values.identifier,
-      password: values.password,
-    };
-    username = values.identifier
-    console.log(values.identifier, username)
     try {
-      const req = await axios.post(
-        "http://localhost:1337/api/auth/local",
-        user,
-      );
+      const req = await axios.post("http://localhost:1337/api/auth/local", {
+        identifier: values.identifier,
+        password: values.password,
+      });
       const token = req.data.jwt;
+      setUser(req.data.user);
+      console.log(req.data.user)
       setJwt(token);
       localStorage.setItem("token", JSON.stringify(token));
       toast.success(`Welcome Back ${values.identifier}`);
       setTimeout(() => {
         navigate("/");
       }, 2000);
+      fetchUser(req.data.user.username);
     } catch (err) {
-      // toast.error(err?.response.data.error.message);
+      toast.error(err?.response.data.error.message);
     }
   }
+
   return (
     <>
       <div className="h-full py-10 px-5">
         <div className="form-box w-full md:w-lg mx-auto text-center py-5 border border-gray-200 rounded shadow-lg">
-          <h2 className="font-poppins font-bold text-xl md:text-3xl py-4">Sign In</h2>
+          <h2 className="font-poppins font-bold text-xl md:text-3xl py-4">
+            Sign In
+          </h2>
           <Formik
             onSubmit={handleLogin}
             validationSchema={loginValidation}

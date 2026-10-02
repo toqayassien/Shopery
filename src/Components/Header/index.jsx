@@ -11,15 +11,27 @@ import axios from "axios";
 import "./index.css";
 
 export default function Header() {
-  let { cartTotal } = useContext(UserContext);
   const [searchValue, setSearchValue] = useState("search");
   const { jwt, setJwt } = useContext(UserContext);
+  const { cart, setCart } = useContext(UserContext);
+  const { cartTotal, setCartTotal } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   let token = JSON.parse(localStorage.getItem("token")) || null;
 
   function handleSignOut() {
     localStorage.removeItem("token");
     setJwt(null);
     token = null;
+    setCartTotal(0)
+    setCart(null)
+    setUser([
+      {
+        "username" : "NA",
+        "cart" :{
+          "cartTotal" : 0
+        }
+      }
+    ])
   }
 
   async function handleSearch(e) {
@@ -34,7 +46,6 @@ export default function Header() {
       console.log(err);
     }
   }
-  // }
   useEffect(() => {
     handleSearch();
   }, [searchValue]);
@@ -108,7 +119,7 @@ export default function Header() {
             <BsHandbag />
             <div className="flex flex-col text-[8px] md:text-sm">
               <p>Shopping cart:</p>
-              <b>${cartTotal.toFixed(2)}</b>
+              <b>${cartTotal ? cartTotal.toFixed(2): `0.00`}</b>
             </div>
           </Link>
         </div>

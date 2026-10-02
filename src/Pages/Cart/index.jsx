@@ -11,11 +11,8 @@ export default function Cart() {
   let subTotal = 0;
   let total = 0;
   let { cartTotal, setCartTotal } = useContext(UserContext);
-  // let { username } = useContext(UserContext);
-  let username = "lola";
-  const [user, setUser] = useState(null);
-  // const [cartTotal, setCartTotal] = useState(0);
-  const [cartItems, setCartItems] = useState(null);
+  const { user, setUser } = useContext(UserContext);
+  const [cartItems, setCartItems] = useState();
   const { quickViewProduct, setQuickViewProduct } = useContext(UserContext);
   const { cart, setCart } = useContext(UserContext);
 
@@ -56,33 +53,27 @@ export default function Cart() {
       });
     });
   }
-
   async function getUser() {
     const response = await axios.get(
-      `http://localhost:1337/api/users?populate=*&filters[username][$eq]=${username}`,
+      `http://localhost:1337/api/users?populate=*&filters[username][$eq]=${user?.username}`,
     );
     setUser(response.data[0]);
+    setCart(response.data[0].cart);
   }
   async function getCart() {
+    console.log(user);
     const response = await axios.get(
-      `http://localhost:1337/api/carts/${user?.cart.documentId}?populate[cart_items][populate][product][populate]=*`,
+      `http://localhost:1337/api/carts/${cart?.documentId}?populate[cart_items][populate][product][populate]=*`,
     );
-    setCart(response.data.data);
-    // setCartTotal(response.data.data.cartTotal)
     setCartItems(response.data.data.cart_items);
   }
   useEffect(() => {
     getUser();
   }, []);
   useEffect(() => {
-    handleQuantity(1, 1, 0);
-  }, []);
-  useEffect(() => {
     getCart();
   }, [user]);
-  useEffect(() => {
-    setCartTotal(total)
-  }, [total]);
+
   return (
     <>
       <div className="flex flex-col items-center px-5 md:px-10 lg:px-20 py-10">

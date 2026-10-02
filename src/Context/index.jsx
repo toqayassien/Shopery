@@ -6,12 +6,14 @@ export default function MainContext({ children }) {
   let [jwt, setJwt] = useState(null);
   let [quickViewProduct, setQuickViewProduct] = useState(null);
   let [cartTotal, setCartTotal] = useState(0)
+  let [user, setUser] = useState([{
+    "username" : "NA"
+  }])
   const [cart, setCart] = useState(null);
-  let username;
 
   return (
     <>
-      <UserContext.Provider value={{cart, setCart, jwt, setJwt, quickViewProduct, setQuickViewProduct, cartTotal, setCartTotal, username }}>
+      <UserContext.Provider value={{user, setUser, cart, setCart, jwt, setJwt, quickViewProduct, setQuickViewProduct, cartTotal, setCartTotal }}>
         {children}
       </UserContext.Provider>
     </>
